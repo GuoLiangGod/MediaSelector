@@ -1,11 +1,13 @@
 package com.guoliang.mediaselector;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+        }
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
@@ -49,6 +58,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSelect() {
-        MediaSelectConfig.from(this).camera(false).forResult(SELECT_CODE);
+        MediaSelectConfig.from(this).camera(false).selectType(MediaSelectConfig.SelectType.IMAGE).forResult(SELECT_CODE);
     }
 }

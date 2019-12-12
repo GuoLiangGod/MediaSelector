@@ -7,11 +7,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,7 @@ public class SelectMediaActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private MediaListFragment videoListFragment;
     private MediaListFragment imageListFragment;
-    private RadioGroup rgMediaType;
+    private TabLayout tabLayout;
     private TextView tv_back;
 
     @Override
@@ -29,7 +32,7 @@ public class SelectMediaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_media);
         viewPager = findViewById(R.id.view_pager);
-        rgMediaType = findViewById(R.id.rg_media_type);
+        tabLayout = findViewById(R.id.tabLayout);
         tv_back = findViewById(R.id.tv_back);
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,16 +52,19 @@ public class SelectMediaActivity extends AppCompatActivity {
         List<Fragment> listFragment = new ArrayList<>();
         switch (selectType) {
             case VIDEO:
+                titles=new String[]{"视频"};
                 videoListFragment = new MediaListFragment(MediaSelectConfig.SelectType.VIDEO,false);
                 videoListFragment.setArguments(bundle);
                 listFragment.add(videoListFragment);
                 break;
             case IMAGE:
+                titles=new String[]{"图片"};
                 imageListFragment = new MediaListFragment(MediaSelectConfig.SelectType.IMAGE,false);
                 imageListFragment.setArguments(bundle);
                 listFragment.add(imageListFragment);
                 break;
             case ALL:
+                titles=new String[]{"视频","图片"};
                 videoListFragment = new MediaListFragment(MediaSelectConfig.SelectType.VIDEO,false);
                 videoListFragment.setArguments(bundle);
                 imageListFragment = new MediaListFragment(MediaSelectConfig.SelectType.IMAGE,false);
@@ -68,38 +74,13 @@ public class SelectMediaActivity extends AppCompatActivity {
                 break;
         }
         viewPager.setAdapter(new MediaPagerAdapter(getSupportFragmentManager(),listFragment));
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                ((RadioButton)rgMediaType.getChildAt(position)).setChecked(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        rgMediaType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rb_video) {
-                    viewPager.setCurrentItem(0);
-                } else if (checkedId == R.id.rb_photo) {
-                    viewPager.setCurrentItem(1);
-                }
-            }
-        });
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
+    private String[] titles;
     class MediaPagerAdapter extends FragmentPagerAdapter {
         private List<Fragment> listFragment;
-
         public MediaPagerAdapter(@NonNull FragmentManager fm, List<Fragment> listFragment) {
             super(fm);
             this.listFragment = listFragment;
@@ -114,6 +95,12 @@ public class SelectMediaActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return listFragment.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
         }
     }
 }
