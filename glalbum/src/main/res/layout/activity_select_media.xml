@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="70dp"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,24 +32,28 @@
                     android:drawableStart="@drawable/ic_navigate_before_black"
                     android:drawableLeft="@drawable/ic_navigate_before_black"
                     android:gravity="center"
-                    android:text="返回"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tabLayout"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tabLayout"
+                    android:layout_marginLeft="15dp" />
+
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tabIndicator="@drawable/tab_my_file"
-                    app:tabIndicatorColor="#2696FF"
-                    app:tabIndicatorFullWidth="false"
-                    app:tabIndicatorHeight="3dp"
-                    app:tabSelectedTextColor="#2696FF"
-                    app:tabTextColor="#292A33"
+                    android:minHeight="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:tabIndicator="@drawable/tab_my_file"
+                    app:tabIndicatorColor="#2696FF"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabTextAppearance="@style/TabLayoutTextStyle"
+                    app:tabIndicatorHeight="3dp"
+                    android:layout_marginBottom="1dp"
+                    app:tabSelectedTextColor="#2696FF"
+                    app:tabTextColor="#333333" />
                 <TextView
                     android:id="@+id/tv_cancel"
                     android:layout_width="wrap_content"
@@ -58,6 +63,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#DADADA"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -66,6 +78,7 @@
         android:id="@+id/view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
