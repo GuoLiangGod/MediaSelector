@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.fragment.app.Fragment;
+
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 
@@ -52,14 +54,22 @@ public class MediaSelectConfig  {
     //可选数量
     private int count=9;
 
-    private final WeakReference<Activity> mActivity;
+    private WeakReference<Activity> mActivity;
+    private WeakReference<Fragment> mFragment;
 
     public MediaSelectConfig(Activity activity) {
         this.mActivity = new WeakReference<>(activity);
     }
 
+    public MediaSelectConfig(Fragment fragment) {
+        this.mFragment = new WeakReference<>(fragment);
+    }
+
     public static MediaSelectConfig from(Activity activity){
         return new MediaSelectConfig(activity);
+    }
+    public static MediaSelectConfig from(Fragment fragment){
+        return new MediaSelectConfig(fragment);
     }
 
     /**
@@ -102,12 +112,25 @@ public class MediaSelectConfig  {
         return this;
     }
 
+    /**
+     * 跳转页面
+     * @param requestCode
+     */
     public void forResult(int requestCode){
-        Activity activity = mActivity.get();
-        Intent intent = new Intent(activity, SelectMediaActivity.class);
-        intent.putExtra(MEDIA_MIME_TYPE, (Parcelable) selectType);
-        intent.putExtra(MEDIA_COUNTABLE,countable);
-        intent.putExtra(MEDIA_CAMERA,camera);
-        activity.startActivityForResult(intent,requestCode);
+        if (mActivity!=null) {
+            Activity activity = mActivity.get();
+            Intent intent = new Intent(activity, SelectMediaActivity.class);
+            intent.putExtra(MEDIA_MIME_TYPE, (Parcelable) selectType);
+            intent.putExtra(MEDIA_COUNTABLE,countable);
+            intent.putExtra(MEDIA_CAMERA,camera);
+            activity.startActivityForResult(intent,requestCode);
+        }else if (mFragment!=null){
+            Fragment fragment = mFragment.get();
+            Intent intent = new Intent(fragment.getContext(), SelectMediaActivity.class);
+            intent.putExtra(MEDIA_MIME_TYPE, (Parcelable) selectType);
+            intent.putExtra(MEDIA_COUNTABLE,countable);
+            intent.putExtra(MEDIA_CAMERA,camera);
+            fragment.startActivityForResult(intent,requestCode);
+        }
     }
 }
