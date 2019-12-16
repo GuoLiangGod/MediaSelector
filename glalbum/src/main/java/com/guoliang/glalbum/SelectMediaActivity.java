@@ -60,8 +60,8 @@ public class SelectMediaActivity extends AppCompatActivity {
                 finish();
             }
         });
-        MediaSelectConfig.SelectType selectType = getIntent().getSerializableExtra(MediaSelectConfig.MEDIA_MIME_TYPE) == null
-                ? MediaSelectConfig.SelectType.ALL : (MediaSelectConfig.SelectType) getIntent().getSerializableExtra(MediaSelectConfig.MEDIA_MIME_TYPE);
+        MediaSelectConfig.SelectType selectType = getIntent().getParcelableExtra(MediaSelectConfig.MEDIA_MIME_TYPE) == null
+                ? MediaSelectConfig.SelectType.ALL : (MediaSelectConfig.SelectType) getIntent().getParcelableExtra(MediaSelectConfig.MEDIA_MIME_TYPE);
         boolean media_countable = getIntent().getBooleanExtra(MediaSelectConfig.MEDIA_COUNTABLE, false);
         boolean media_camera = getIntent().getBooleanExtra(MediaSelectConfig.MEDIA_CAMERA, false);
         int media_count = getIntent().getIntExtra(MediaSelectConfig.MEDIA_COUNT, 9);

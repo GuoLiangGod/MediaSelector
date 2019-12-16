@@ -2,6 +2,8 @@ package com.guoliang.glalbum;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
@@ -11,8 +13,30 @@ import java.lang.ref.WeakReference;
  * CreateDate: 2019/12/914:06
  */
 public class MediaSelectConfig  {
-    public enum SelectType implements Serializable {
-        ALL,VIDEO,IMAGE
+    public enum SelectType implements Parcelable {
+        ALL,VIDEO,IMAGE;
+
+        public static final Creator<SelectType> CREATOR = new Creator<SelectType>() {
+            @Override
+            public SelectType createFromParcel(Parcel in) {
+                return SelectType.values()[in.readInt()];
+            }
+
+            @Override
+            public SelectType[] newArray(int size) {
+                return new SelectType[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(ordinal());
+        }
     }
     public final static String MEDIA_MIME_TYPE="media_mime_type";
     public final static String MEDIA_COUNTABLE="media_countable";
@@ -81,7 +105,7 @@ public class MediaSelectConfig  {
     public void forResult(int requestCode){
         Activity activity = mActivity.get();
         Intent intent = new Intent(activity, SelectMediaActivity.class);
-        intent.putExtra(MEDIA_MIME_TYPE, selectType);
+        intent.putExtra(MEDIA_MIME_TYPE, (Parcelable) selectType);
         intent.putExtra(MEDIA_COUNTABLE,countable);
         intent.putExtra(MEDIA_CAMERA,camera);
         activity.startActivityForResult(intent,requestCode);

@@ -23,13 +23,14 @@ public class MediaFile implements Parcelable {
     public MediaFile() {
     }
 
-    public MediaFile(Uri uri, String name, String mimeType, long duration, long size, long dateToken) {
+    public MediaFile(Uri uri, String name, String mimeType, long duration, long size, long dateToken, MediaSelectConfig.SelectType mediaType) {
         this.uri = uri;
         this.name = name;
         this.mimeType = mimeType;
         this.duration = duration;
         this.size = size;
         this.dateToken = dateToken;
+        this.mediaType = mediaType;
     }
 
     private MediaFile(Parcel in) {
@@ -39,6 +40,7 @@ public class MediaFile implements Parcelable {
         duration = in.readLong();
         size = in.readLong();
         dateToken = in.readLong();
+        mediaType=in.readParcelable(MediaSelectConfig.SelectType.class.getClassLoader());
     }
 
 
@@ -68,6 +70,7 @@ public class MediaFile implements Parcelable {
         dest.writeLong(duration);
         dest.writeLong(size);
         dest.writeLong(dateToken);
+        dest.writeParcelable(mediaType,flags);
     }
     public Uri getUri() {
         return uri;

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.guoliang.glalbum.MediaSelectConfig;
+import com.guoliang.glalbum.entity.MediaFile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        MediaFile parcelableExtra = (MediaFile) data.getParcelableExtra(MediaSelectConfig.EXTRA_RESULT_MEDIA_FILE);
         if (resultCode == RESULT_OK) {
         }
     }
