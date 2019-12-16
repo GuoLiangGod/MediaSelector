@@ -124,8 +124,8 @@ public class MediaListFragment extends Fragment {
             listPopupWindow.setHeight(1000);
             listPopupWindow.setAdapter(listPopupWindowAdapter);
             listPopupWindow.setAnchorView(tv_album);
-            listPopupWindow.show();
             listPopupWindow.setModal(true);
+            listPopupWindow.show();
             listPopupWindow.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
