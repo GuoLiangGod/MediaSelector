@@ -60,6 +60,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSelect() {
-        MediaSelectConfig.from(this).camera(false).selectType(MediaSelectConfig.SelectType.ALL).forResult(SELECT_CODE);
+        MediaSelectConfig.from(this).camera(true).selectType(MediaSelectConfig.SelectType.ALL).forResult(SELECT_CODE);
     }
 }

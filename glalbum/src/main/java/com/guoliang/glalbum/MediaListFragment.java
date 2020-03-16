@@ -43,12 +43,21 @@ public class MediaListFragment extends Fragment {
     private AlbumLoader albumLoader;
     private MediaLoader mediaLoader;
     private Album selectAlbum = new Album();
-    private MediaSelectConfig.SelectType selectType;
-    private boolean isCamera;
+    private static MediaSelectConfig.SelectType selectType;
+    private static boolean isCamera;
 
-    public MediaListFragment(MediaSelectConfig.SelectType selectType, boolean isCamera) {
-        this.selectType = selectType;
-        this.isCamera = isCamera;
+    public MediaListFragment() {
+    }
+
+    public static MediaListFragment newInstance(MediaSelectConfig.SelectType st, boolean isC) {
+        selectType=st;
+        isCamera=isC;
+        return new MediaListFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

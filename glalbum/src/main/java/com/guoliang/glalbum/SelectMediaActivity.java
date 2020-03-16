@@ -73,21 +73,21 @@ public class SelectMediaActivity extends AppCompatActivity {
         switch (selectType) {
             case VIDEO:
                 titles=new String[]{"视频"};
-                videoListFragment = new MediaListFragment(MediaSelectConfig.SelectType.VIDEO,false);
+                videoListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.VIDEO,false);
                 videoListFragment.setArguments(bundle);
                 listFragment.add(videoListFragment);
                 break;
             case IMAGE:
                 titles=new String[]{"图片"};
-                imageListFragment = new MediaListFragment(MediaSelectConfig.SelectType.IMAGE,false);
+                imageListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.IMAGE,false);
                 imageListFragment.setArguments(bundle);
                 listFragment.add(imageListFragment);
                 break;
             case ALL:
                 titles=new String[]{"视频","图片"};
-                videoListFragment = new MediaListFragment(MediaSelectConfig.SelectType.VIDEO,false);
+                videoListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.VIDEO,false);
                 videoListFragment.setArguments(bundle);
-                imageListFragment = new MediaListFragment(MediaSelectConfig.SelectType.IMAGE,false);
+                imageListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.IMAGE,false);
                 imageListFragment.setArguments(bundle);
                 listFragment.add(videoListFragment);
                 listFragment.add(imageListFragment);
