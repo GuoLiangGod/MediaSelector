@@ -66,34 +66,46 @@ public class SelectMediaActivity extends AppCompatActivity {
         boolean media_countable = getIntent().getBooleanExtra(MediaSelectConfig.MEDIA_COUNTABLE, false);
         boolean media_camera = getIntent().getBooleanExtra(MediaSelectConfig.MEDIA_CAMERA, false);
         int media_count = getIntent().getIntExtra(MediaSelectConfig.MEDIA_COUNT, 9);
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(MediaSelectConfig.MEDIA_COUNTABLE,media_countable);
-        bundle.putBoolean(MediaSelectConfig.MEDIA_CAMERA,media_camera);
-        bundle.putInt(MediaSelectConfig.MEDIA_COUNT,media_count);
         List<Fragment> listFragment = new ArrayList<>();
+        Bundle bundleVideo = new Bundle();
+        Bundle bundleImage = new Bundle();
         switch (selectType) {
             case VIDEO:
                 titles=new String[]{"视频"};
                 videoListFragment = new MediaListFragment();
-                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.VIDEO);
-                videoListFragment.setArguments(bundle);
+                bundleVideo.putBoolean(MediaSelectConfig.MEDIA_COUNTABLE,media_countable);
+                bundleVideo.putBoolean(MediaSelectConfig.MEDIA_CAMERA,media_camera);
+                bundleVideo.putInt(MediaSelectConfig.MEDIA_COUNT,media_count);
+                bundleVideo.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.VIDEO);
+                videoListFragment.setArguments(bundleVideo);
                 listFragment.add(videoListFragment);
                 break;
             case IMAGE:
                 titles=new String[]{"图片"};
                 imageListFragment = new MediaListFragment();
-                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.IMAGE);
-                imageListFragment.setArguments(bundle);
+                bundleImage.putBoolean(MediaSelectConfig.MEDIA_COUNTABLE,media_countable);
+                bundleImage.putBoolean(MediaSelectConfig.MEDIA_CAMERA,media_camera);
+                bundleImage.putInt(MediaSelectConfig.MEDIA_COUNT,media_count);
+                bundleImage.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.IMAGE);
+                imageListFragment.setArguments(bundleImage);
                 listFragment.add(imageListFragment);
                 break;
             case ALL:
                 titles=new String[]{"视频","图片"};
                 videoListFragment = new MediaListFragment();
-                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.VIDEO);
-                videoListFragment.setArguments(bundle);
+                bundleVideo.putBoolean(MediaSelectConfig.MEDIA_COUNTABLE,media_countable);
+                bundleVideo.putBoolean(MediaSelectConfig.MEDIA_CAMERA,media_camera);
+                bundleVideo.putInt(MediaSelectConfig.MEDIA_COUNT,media_count);
+                bundleVideo.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.VIDEO);
+                videoListFragment.setArguments(bundleVideo);
+
                 imageListFragment = new MediaListFragment();
-                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.IMAGE);
-                imageListFragment.setArguments(bundle);
+                bundleImage.putBoolean(MediaSelectConfig.MEDIA_COUNTABLE,media_countable);
+                bundleImage.putBoolean(MediaSelectConfig.MEDIA_CAMERA,media_camera);
+                bundleImage.putInt(MediaSelectConfig.MEDIA_COUNT,media_count);
+                bundleImage.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.IMAGE);
+                imageListFragment.setArguments(bundleImage);
+
                 listFragment.add(videoListFragment);
                 listFragment.add(imageListFragment);
                 break;
