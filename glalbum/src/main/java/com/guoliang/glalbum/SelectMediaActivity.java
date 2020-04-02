@@ -3,6 +3,7 @@ package com.guoliang.glalbum;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -73,21 +74,25 @@ public class SelectMediaActivity extends AppCompatActivity {
         switch (selectType) {
             case VIDEO:
                 titles=new String[]{"视频"};
-                videoListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.VIDEO,false);
+                videoListFragment = new MediaListFragment();
+                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.VIDEO);
                 videoListFragment.setArguments(bundle);
                 listFragment.add(videoListFragment);
                 break;
             case IMAGE:
                 titles=new String[]{"图片"};
-                imageListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.IMAGE,false);
+                imageListFragment = new MediaListFragment();
+                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.IMAGE);
                 imageListFragment.setArguments(bundle);
                 listFragment.add(imageListFragment);
                 break;
             case ALL:
                 titles=new String[]{"视频","图片"};
-                videoListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.VIDEO,false);
+                videoListFragment = new MediaListFragment();
+                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.VIDEO);
                 videoListFragment.setArguments(bundle);
-                imageListFragment = MediaListFragment.newInstance(MediaSelectConfig.SelectType.IMAGE,false);
+                imageListFragment = new MediaListFragment();
+                bundle.putParcelable(MediaSelectConfig.MEDIA_MIME_TYPE, MediaSelectConfig.SelectType.IMAGE);
                 imageListFragment.setArguments(bundle);
                 listFragment.add(videoListFragment);
                 listFragment.add(imageListFragment);

@@ -3,6 +3,7 @@ package com.guoliang.glalbum;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,17 +44,12 @@ public class MediaListFragment extends Fragment {
     private AlbumLoader albumLoader;
     private MediaLoader mediaLoader;
     private Album selectAlbum = new Album();
-    private static MediaSelectConfig.SelectType selectType;
-    private static boolean isCamera;
+    private MediaSelectConfig.SelectType selectType;
+    private boolean isCamera;
 
     public MediaListFragment() {
     }
 
-    public static MediaListFragment newInstance(MediaSelectConfig.SelectType st, boolean isC) {
-        selectType=st;
-        isCamera=isC;
-        return new MediaListFragment();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,9 +57,13 @@ public class MediaListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        Bundle bundle = getArguments();
+        if (bundle!=null) {
+            isCamera=bundle.getBoolean(MediaSelectConfig.MEDIA_CAMERA, false);
+            selectType = bundle.getParcelable(MediaSelectConfig.MEDIA_MIME_TYPE);
+        }
         return inflater.inflate(R.layout.fragment_media_list, container, false);
     }
 
@@ -82,8 +82,10 @@ public class MediaListFragment extends Fragment {
             public void onItemClick(int position) {
                 Intent intent = new Intent();
                 intent.putExtra(MediaSelectConfig.EXTRA_RESULT_MEDIA_FILE,mediaFileList.get(position));
-                getActivity().setResult(RESULT_OK, intent);
-                getActivity().finish();
+                if (getActivity()!=null) {
+                    getActivity().setResult(RESULT_OK, intent);
+                    getActivity().finish();
+                }
             }
 
             @Override
